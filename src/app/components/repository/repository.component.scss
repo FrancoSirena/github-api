@@ -1,0 +1,9 @@
+.footer {
+  font-size: 12px;
+  display: flex;
+  flex-direction: row-reverse;
+  flex-wrap: nowrap;
+  .item {
+    flex-grow: 1;
+  }
+}

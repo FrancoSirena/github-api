@@ -1,0 +1,25 @@
+<mat-card>
+  <mat-card-header>
+    <!-- <div mat-card-avatar [style]="{background-image: item.avatar}"></div> -->
+    <mat-card-title>
+      <mat-icon>account_circle</mat-icon>
+      {{ item.name }}
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    {{item.description}}
+  </mat-card-content>
+  <mat-card-footer>
+    <div class="footer">
+      <div class="item">
+        <mat-icon>updated</mat-icon> {{ item.updated_at }}
+      </div>
+      <div class="item">
+        <mat-icon>star</mat-icon> {{ item.stars }}
+      </div>
+      <div class="item">
+        <mat-icon>date_range</mat-icon> {{ item.created }}
+      </div>
+    </div>
+  </mat-card-footer>
+</mat-card>

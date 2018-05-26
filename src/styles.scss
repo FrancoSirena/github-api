@@ -1,0 +1,17 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "assets/fonts/material-icons.css";
+
+body {
+  padding: 25px
+}
+
+::-webkit-scrollbar{
+  width: 10px;
+  background-color: #f1f1f1
+}
+
+::-webkit-scrollbar-thumb {
+  background: #000;
+  border-radius: 25%;
+}
