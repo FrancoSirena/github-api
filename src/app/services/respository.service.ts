@@ -1,18 +1,12 @@
-import { GitHubService } from '@serv/github.service';
-import { Observable, throwError, Subject } from 'rxjs';
-import { IRepository } from '@interfaces/repository';
-import { map, catchError } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
+import { IRepository } from '@interfaces/repository';
+import { GitHubService } from '@serv/github.service';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class RepositoryService {
-  time$: Observable<Date>;
-  private _time: Subject<Date>;
-
-  constructor(private gitHubService: GitHubService) {
-    this._time = new Subject<Date>();
-    this.time$ = this._time.asObservable();
-  }
+  constructor(private gitHubService: GitHubService) { }
 
   getRepositories(): Observable<IRepository[]> {
     return this.gitHubService.getRepositories()
@@ -29,11 +23,6 @@ export class RepositoryService {
               stars: item.stargazers_count
             };
           });
-        }),
-        catchError((err, caught) => {
-          const date = new Date(parseFloat(err.headers.get('X-RateLimit-Reset')) * 1000);
-          this._time.next(date);
-          return throwError(err);
         })
       );
   }

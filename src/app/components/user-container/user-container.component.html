@@ -1,6 +1,6 @@
 <div class="flex-row">
   <div class="item-left">
-    <button mat-raised-button (click)="getUsers()" #prolific_users>
+    <button mat-raised-button (click)="getUsers()" id="prolific_users">
       <mat-icon>update</mat-icon> Get Users
     </button>
   </div>
@@ -8,7 +8,7 @@
     <small>
       Last try: {{ lastTry }}
       <br/>
-      <span *ngIf="timeUntil$"> Couldn't retrieve user data, wait until {{ timeUntil$ | async }}</span>
+      <span *ngIf="timeUntil$ | async"> Couldn't retrieve user data, wait until {{ time }}</span>
     </small>
   </div>
 </div>
@@ -19,5 +19,5 @@
   </ng-container>
 </div>
 <ng-template #noData>
-  <p>Ooops! You're number of request has excedeed the limit. You'll need to wait until {{ timeUntil$ | async }} </p>
+  <p>Ooops! something went wrong. </p>
 </ng-template>

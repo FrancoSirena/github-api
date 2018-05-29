@@ -6,9 +6,7 @@
     </ng-template>
     <mat-card-title>{{ item.login }}</mat-card-title>
     <mat-card-subtitle matTooltip="Followers">
-      <ng-template *ngIf="item.followers; else unableToRetrieve">
-        Followers: {{ item.followers }}
-      </ng-template>
+      <span *ngIf="item.followers; else unableToRetrieve"> Followers: {{ item.followers }} </span>
       <ng-template #unableToRetrieve>Unable to retrieve followers</ng-template>
     </mat-card-subtitle>
   </mat-card-header>

@@ -1,6 +1,6 @@
 <div class="flex-row">
   <div class="item-left">
-    <button mat-raised-button (click)="getRepo()" #hot_repo>
+    <button mat-raised-button (click)="getRepo()" id="hot_repo">
       <mat-icon>update</mat-icon> Get Repos
     </button>
   </div>
@@ -17,5 +17,5 @@
   </ng-container>
 </div>
 <ng-template #noData>
-  <p>Ooops! You're number of request has excedeed the limit. You'll need to wait until {{ timeUntil$ | async }} </p>
+  <p>Ooops! Something went wrong </p>
 </ng-template>

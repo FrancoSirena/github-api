@@ -8,6 +8,7 @@
   }
   .item {
     flex-grow: 1;
+    max-width: 50%;
     @media (max-width: 900px) {
       margin-top: 20px
     }

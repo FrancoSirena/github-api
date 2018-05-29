@@ -29,9 +29,7 @@ export class GitHubService {
   }
 
   getUser(userID: string) {
-    let headers = new HttpHeaders();
-    headers = headers.set('X-Cachable', 'true');
-    return this.http.get<Array<any>>(`/users/${userID}`, { headers: headers });
+    return this.http.get<Array<any>>(`/users/${userID}`);
   }
 
   getRepositories(): Observable<IGitHubRepoResponse> {

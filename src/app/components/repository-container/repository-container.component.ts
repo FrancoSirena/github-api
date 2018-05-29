@@ -1,8 +1,8 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { IRepository } from '@interfaces/repository';
 import { RepositoryService } from '@serv/respository.service';
-import { map, takeWhile } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { takeWhile, tap } from 'rxjs/operators';
 
 
 @Component({
@@ -11,22 +11,14 @@ import { map, takeWhile } from 'rxjs/operators';
   styleUrls: ['./repository-container.component.scss']
 })
 export class RepositoryContainerComponent implements OnInit, OnDestroy {
-  timeUntil$: Observable<string>;
   repositories: Array<any>;
   lastTry: string;
-  private alive: boolean;
   private interval: number;
   constructor(private repositoryService: RepositoryService) {
-    this.alive = true;
     this.repositories = new Array<any>();
-    this.timeUntil$ = this.repositoryService.time$.pipe(
-      map((time: Date) => time ? time.toLocaleTimeString() : null),
-      takeWhile(() => this.alive)
-    );
   }
 
   ngOnDestroy() {
-    this.alive = false;
     clearInterval(this.interval);
   }
 

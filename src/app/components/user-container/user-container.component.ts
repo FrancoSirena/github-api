@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { UserService } from '@serv/user.service';
-import { Observable } from 'rxjs';
-import { map, takeWhile } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { map, tap, takeWhile, catchError } from 'rxjs/operators';
 
 
 @Component({
@@ -11,7 +11,8 @@ import { map, takeWhile } from 'rxjs/operators';
 })
 export class UserContainerComponent implements OnInit, OnDestroy {
   users: Array<any>;
-  timeUntil$: Observable<string>;
+  time: string;
+  timeUntil$: Observable<Date>;
   lastTry: string;
   private interval: number;
   private alive: boolean;
@@ -19,7 +20,7 @@ export class UserContainerComponent implements OnInit, OnDestroy {
     this.alive = true;
     this.users = new Array<any>();
     this.timeUntil$ = this.userService.time$.pipe(
-      map((time: Date) => time ? time.toLocaleTimeString() : null),
+      tap((time: any) => this.time = time ? time.toLocaleTimeString() : null),
       takeWhile(() => this.alive)
     );
   }
