@@ -3,5 +3,7 @@ export interface IUser {
   id: number;
   avatar_url: string;
   url: string;
-  followers_url: string;
+  followers: string;
+  location: string;
+  name: string;
 }

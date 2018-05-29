@@ -1,5 +1,5 @@
 import { Input, Component } from '@angular/core';
-import { IRepository } from 'app/interfaces/repository';
+import { IUser } from '@interfaces/user';
 
 @Component({
   selector: 'app-user',
@@ -7,5 +7,5 @@ import { IRepository } from 'app/interfaces/repository';
   styleUrls: ['./user.component.scss']
 })
 export class UserComponent {
-  @Input() item: IRepository;
+  @Input() item: IUser;
 }
