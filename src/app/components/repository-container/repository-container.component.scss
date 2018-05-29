@@ -1,3 +1,22 @@
-.items {
-  max-height: 80%;
+.flex-container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  .item {
+    width: 280px;
+    flex-grow: 1;
+    margin: auto;
+  }
+}
+
+.flex-row {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  .item {
+    flex-shrink: 1;
+  }
+  .item-left {
+    flex-grow: 3;
+  }
 }

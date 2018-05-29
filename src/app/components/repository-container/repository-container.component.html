@@ -1,5 +1,21 @@
-<div class="items">
+<div class="flex-row">
+  <div class="item-left">
+    <button mat-raised-button (click)="getRepo()" #hot_repo>
+      <mat-icon>update</mat-icon> Get Repos
+    </button>
+  </div>
+  <div class="item">
+    <small>
+      Last try: {{ lastTry }}
+    </small>
+  </div>
+</div>
+<hr/>
+<div class="flex-container" *ngIf="repositories && repositories.length > 0; else noData">
   <ng-container *ngFor="let repository of repositories">
-    <app-repository [item]="repository"></app-repository>
+    <app-repository class="item" [item]="repository"></app-repository>
   </ng-container>
 </div>
+<ng-template #noData>
+  <p>Ooops! You're number of request has excedeed the limit. You'll need to wait until {{ timeUntil$ | async }} </p>
+</ng-template>

@@ -1,9 +1,9 @@
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { map, concatMap } from 'rxjs/operators';
-import { IRepository } from '../interfaces/repository';
-import { Observable, forkJoin } from 'rxjs';
 import { IUser } from '@interfaces/user';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { IRepository } from '@interfaces/repository';
 
 interface IGitHubRepoResponse {
   items: Array<any>;
@@ -19,47 +19,28 @@ interface IGitHubUserResponse {
 export class GitHubService {
   constructor(private http: HttpClient) { }
 
-  getUsers() {
+  getUsers(): Observable<IGitHubUserResponse> {
     let date = new Date();
     date = new Date(date.setMonth(-12));
     let httpParams = new HttpParams();
-    httpParams = httpParams.append('q', `created:>=${this.fGetDate(date)}`);
+    httpParams = httpParams.append('q', `created:>=${this.fGetDate(date)}+type:user`);
     httpParams = httpParams.append('sort', `followers`);
-    return this.http.get<IGitHubUserResponse>(`/search/users`, { params: httpParams })
-      .pipe(
-        concatMap(response => {
-          let requests: Observable<any>[];
-          requests = response.items.slice(0, 5).map(item => this.http.get<Array<any>>(`/users/${item.login}`)
-            .pipe(
-              map(followers => ({ user: item, followersCount: followers }))
-            ));
-          return forkJoin(requests);
-        }),
-    );
+    return this.http.get<IGitHubUserResponse>(`/search/users`, { params: httpParams });
   }
 
-  getRepositories(): Observable<Array<IRepository>> {
+  getUser(userID: string) {
+    let headers = new HttpHeaders();
+    headers = headers.set('X-Cachable', 'true');
+    return this.http.get<Array<any>>(`/users/${userID}`, { headers: headers });
+  }
+
+  getRepositories(): Observable<IGitHubRepoResponse> {
     let date = new Date();
     date = new Date(date.setMonth(-1));
     let httpParams = new HttpParams();
     httpParams = httpParams.append('q', `created:>=${this.fGetDate(date)}`);
     httpParams = httpParams.append('sort', `stars`);
-    return this.http.get<IGitHubRepoResponse>(`/search/repositories`, { params: httpParams })
-      .pipe(
-        map(response => {
-          return response.items.map(item => {
-            return {
-              id: item.id,
-              name: item.name,
-              url: item.url,
-              created: item.created_at,
-              updated_at: item.updated_at,
-              description: item.description,
-              stars: item.stargazers_count
-            };
-          });
-        })
-      );
+    return this.http.get<IGitHubRepoResponse>(`/search/repositories`, { params: httpParams });
   }
 
   private fGetDate(date: Date) {

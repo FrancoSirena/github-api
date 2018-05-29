@@ -3,7 +3,16 @@
 @import "assets/fonts/material-icons.css";
 
 body {
-  padding: 25px
+  padding: 25px;
+  padding-top: 0px;
+}
+
+.error-snack-bar {
+  background-color:red;
+  color: black;
+  font-weight: bold;
+  font-size: 12px;
+  opacity: 0.8;
 }
 
 ::-webkit-scrollbar{
@@ -14,4 +23,19 @@ body {
 ::-webkit-scrollbar-thumb {
   background: #000;
   border-radius: 25%;
+}
+
+.mat-icon {
+  display: inline-flex;
+  vertical-align: middle;
+}
+
+
+.card {
+  font-size: 12px;
+  text-align: left;
+  min-height: 250px;
+  overflow-y: auto;
+  margin-bottom: 10px;
+  margin-right: 5px;
 }

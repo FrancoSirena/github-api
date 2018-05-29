@@ -1,23 +1,26 @@
-<mat-card>
+<mat-card class="card">
   <mat-card-header>
-    <mat-card-title>
-      <mat-icon>account_circle</mat-icon>
-      {{ item.name }}
-    </mat-card-title>
+    <mat-icon mat-card-avatar>folder_special</mat-icon>
+    <mat-card-title>{{ item.name }}</mat-card-title>
+    <mat-card-subtitle>
+      Stars: {{ item.stars }}
+    </mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
-    {{item.description}}
+    <p>
+      <strong>ID: {{ item.id }}</strong>
+    </p>
+    <p>
+      {{item.description}}
+    </p>
   </mat-card-content>
   <mat-card-footer>
-    <div class="footer">
-      <div class="item">
-        <mat-icon>updated</mat-icon> {{ item.updated_at }}
+    <div class="flex">
+      <div class="item-left" matTooltip="Last update">
+        <mat-icon>updated</mat-icon> {{ item.updated_at | date }}
       </div>
-      <div class="item">
-        <mat-icon>star</mat-icon> {{ item.stars }}
-      </div>
-      <div class="item">
-        <mat-icon>date_range</mat-icon> {{ item.created }}
+      <div class="item" matTooltip="Created at">
+        <mat-icon>date_range</mat-icon> {{ item.created | date }}
       </div>
     </div>
   </mat-card-footer>

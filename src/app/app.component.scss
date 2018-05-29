@@ -1,12 +1,19 @@
 .flex-row {
   display: flex;
   flex-direction: row;
-  flex-wrap: nowrap;
   justify-content: space-around;
+  align-content: space-around;
+  @media (max-width: 900px) {
+    flex-direction: column;
+  }
   .item {
     flex-grow: 1;
-    align-self: flex-start;
-    max-height: 80%;
-    overflow-y: auto;
+    @media (max-width: 900px) {
+      margin-top: 20px
+    }
+    @media (min-width: 901px) {
+      margin-left: 20px;
+    }
+
   }
 }

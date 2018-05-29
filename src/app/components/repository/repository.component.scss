@@ -1,9 +1,27 @@
-.footer {
-  font-size: 12px;
+.flex {
   display: flex;
-  flex-direction: row-reverse;
+  flex-direction: row;
   flex-wrap: nowrap;
-  .item {
-    flex-grow: 1;
-  }
+}
+
+.mat-card-content {
+  overflow-y: auto;
+  max-height: 180px;
+  overflow-x: hidden;
+}
+
+.mat-card-footer {
+  margin: 0;
+  margin-top: 2px;
+  left: 0;
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
+}
+
+.item {
+  flex-grow: 1;
+}
+.item-left {
+  flex-grow: 3;
 }

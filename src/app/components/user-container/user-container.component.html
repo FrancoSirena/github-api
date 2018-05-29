@@ -1,5 +1,23 @@
-<div class="items">
-  <ng-container *ngFor="let repository of repositories">
-    <app-repository [item]="repository"></app-repository>
+<div class="flex-row">
+  <div class="item-left">
+    <button mat-raised-button (click)="getUsers()" #prolific_users>
+      <mat-icon>update</mat-icon> Get Users
+    </button>
+  </div>
+  <div class="item">
+    <small>
+      Last try: {{ lastTry }}
+      <br/>
+      <span *ngIf="timeUntil$"> Couldn't retrieve user data, wait until {{ timeUntil$ | async }}</span>
+    </small>
+  </div>
+</div>
+<hr/>
+<div class="flex-container" *ngIf="users && users.length > 0; else noData">
+  <ng-container *ngFor="let user of users">
+    <app-user class="item" [item]="user"></app-user>
   </ng-container>
 </div>
+<ng-template #noData>
+  <p>Ooops! You're number of request has excedeed the limit. You'll need to wait until {{ timeUntil$ | async }} </p>
+</ng-template>

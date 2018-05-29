@@ -1,25 +1,34 @@
-<mat-card>
+<mat-card class="card">
   <mat-card-header>
-    <!-- <div mat-card-avatar [style]="{background-image: item.avatar}"></div> -->
-    <mat-card-title>
-      <mat-icon>account_circle</mat-icon>
-      {{ item.name }}
-    </mat-card-title>
+    <img mat-card-avatar *ngIf="item.avatar_url; else noImg" [src]="item.avatar_url">
+    <ng-template #noImg>
+      <mat-icon mat-card-avatar>account_circle</mat-icon>
+    </ng-template>
+    <mat-card-title>{{ item.login }}</mat-card-title>
+    <mat-card-subtitle matTooltip="Followers">
+      <ng-template *ngIf="item.followers; else unableToRetrieve">
+        Followers: {{ item.followers }}
+      </ng-template>
+      <ng-template #unableToRetrieve>Unable to retrieve followers</ng-template>
+    </mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
-    {{item.description}}
+    <mat-list>
+      <mat-list-item>
+        <mat-icon mat-list-icon>label_important</mat-icon>
+        <h4 mat-line>ID: {{ item.id }}</h4>
+      </mat-list-item>
+      <mat-list-item>
+        <mat-icon mat-list-icon>perm_identity</mat-icon>
+        <h4 mat-line>Name: {{ item.name }}</h4>
+      </mat-list-item>
+      <mat-list-item>
+        <mat-icon mat-list-icon>location_on</mat-icon>
+        <h4 mat-line>{{ item.location }}</h4>
+      </mat-list-item>
+    </mat-list>
   </mat-card-content>
   <mat-card-footer>
-    <div class="footer">
-      <div class="item">
-        <mat-icon>updated</mat-icon> {{ item.updated_at }}
-      </div>
-      <div class="item">
-        <mat-icon>star</mat-icon> {{ item.stars }}
-      </div>
-      <div class="item">
-        <mat-icon>date_range</mat-icon> {{ item.created }}
-      </div>
-    </div>
+
   </mat-card-footer>
 </mat-card>

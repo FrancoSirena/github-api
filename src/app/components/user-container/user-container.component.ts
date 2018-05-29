@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { GitHubService } from 'app/services/github.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { UserService } from '@serv/user.service';
 import { Observable } from 'rxjs';
+import { map, takeWhile } from 'rxjs/operators';
 
 
 @Component({
@@ -8,20 +9,38 @@ import { Observable } from 'rxjs';
   templateUrl: './user-container.component.html',
   styleUrls: ['./user-container.component.scss']
 })
-export class UserContainerComponent implements OnInit {
+export class UserContainerComponent implements OnInit, OnDestroy {
+  users: Array<any>;
+  timeUntil$: Observable<string>;
+  lastTry: string;
+  private interval: number;
+  private alive: boolean;
+  constructor(private userService: UserService) {
+    this.alive = true;
+    this.users = new Array<any>();
+    this.timeUntil$ = this.userService.time$.pipe(
+      map((time: Date) => time ? time.toLocaleTimeString() : null),
+      takeWhile(() => this.alive)
+    );
+  }
 
-  repositories: Array<any>;
-  constructor(private gitHubService: GitHubService) {
-    this.repositories = new Array<any>();
+  ngOnDestroy() {
+    this.alive = false;
+    clearInterval(this.interval);
   }
 
   ngOnInit() {
-    this.getRepo();
+    this.getUsers();
+    this.interval = window.setInterval(() => this.getUsers(), 120000);
   }
 
-  getRepo() {
-    this.gitHubService.getUsers()
-      .subscribe((response) => console.log(response));
+  getUsers() {
+    this.users = [];
+    this.lastTry = (new Date()).toLocaleTimeString();
+    this.userService.getUsers()
+      .subscribe((response) => {
+        this.users = response;
+      });
   }
 
 }

@@ -1,9 +1,11 @@
-.footer {
+.mat-card-content {
+  overflow-y: auto;
+  max-height: 180px;
+  overflow-x: hidden;
   font-size: 12px;
-  display: flex;
-  flex-direction: row-reverse;
-  flex-wrap: nowrap;
-  .item {
-    flex-grow: 1;
-  }
+}
+
+.mat-list .mat-list-item {
+  font-size: 12px !important;
+  height: auto;
 }
